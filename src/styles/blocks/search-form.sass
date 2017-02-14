@@ -1,0 +1,63 @@
+.search-form
+  padding-top: 7em
+
+  fieldset
+    border: none
+
+  h2
+    text-align: center
+    @include font-size(18)
+    line-height: 1em
+    margin: 0 0 1em
+
+  p
+    text-align: center
+    @include font-size(14)
+    line-height: 1.2em
+    margin: 0 0 2em
+
+.search-form__field-row
+  @include clearfix()
+  @include css3-prefix('display', 'flex')
+  @include css3-prefix('flew-flow', 'row nowrap')
+  @include css3-prefix('justify-content', 'center')
+
+.search-form__input-wrapper
+  position: relative
+  @include css3-prefix('align-self', 'center')
+
+  input
+    border: 1px $color-global-borders solid
+    @include font-size(14)
+    line-height: 1em
+    color: $color-global-inactive
+    padding: .2em 10px
+
+    &:focus
+      color: $color-global-black
+
+    &:focus + .search-form__input-info
+      @extend .is-placeholder-focused
+
+.search-form__input-info
+  @include font-size(14)
+  line-height: 1em
+  color: $color-global-borders
+  position: absolute
+  top: 50%
+  left: 0
+  padding: 0 10px
+  pointer-events: none
+  @include css3-prefix('transform', 'translate(0%, -50%)')
+  @include transition(font-size .5s $transition-easing-easeInOutCirc, transform .5s $transition-easing-easeInOutCirc, line-height .5s $transition-easing-easeInOutCirc)
+
+
+.is-valued + .search-form__input-info
+  @extend .is-placeholder-focused
+
+.is-placeholder-focused
+  @include font-size(8)
+  @include css3-prefix('transform', 'translate(0%, -140%)')
+
+[placeholder]:focus::-webkit-input-placeholder
+  color: transparent;

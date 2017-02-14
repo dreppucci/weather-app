@@ -1,0 +1,18 @@
+{
+  "SearchFormTitle": "Discover the weather",
+  "SearchFormIntro": "Weather App® will reveal the weather in the city you're searching for until next five days",
+  "SearchFormInputPlaceholder": "Type a city name",
+  "SearchFormInputInput": "Mandatory field",
+  "SearchFormGeolocalizeMe": "Geo localize me",
+  "SearchFormGeolocalizing": "Geo locating...",
+  "SearchFormFetchingCityData": "Fetching city data...",
+  "SearchFormFetchingCityDataError": "Fetched but errors...",
+  "SearchFormFetchingCityDataOk": "Fetched",
+  "SearchFormCityUnknown": "Unknown city",
+  "SearchFormGeolocationDenied": "Geo location denied from the user",
+  "WeatherFetchingData": "Fetching weather forecast data...",
+  "WeatherFetchingDataError": "Error while fetching weather forecast data...",
+  "WeatherUpdatingData": "Updating weather forecast data...",
+  "WeatherUpdatedData": "Updated weather forecast data",
+  "WeatherNow": "Now"
+}
