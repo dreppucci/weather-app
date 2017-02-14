@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { locale } from './../index.js';
 
 const CityDisplayer = ({ city, country, lat, lng, message, status }) => {
   return (
@@ -6,10 +7,10 @@ const CityDisplayer = ({ city, country, lat, lng, message, status }) => {
       <div className={ status != 200 ? 'message is-hidden' : 'message is-visible' }>{message}</div>
       <div className="city">
         <div className={ city != null ? 'is-visible' : 'is-hidden' }>
-        città: {city}
-        stato: {country}
-        lat: {lat}
-        lng: {lng}
+          {locale.City}: {city}
+          {locale.Country}: {country}
+          {locale.Latitude}: {lat}
+          {locale.Longitude}: {lng}
         </div>
       </div>
     </div>

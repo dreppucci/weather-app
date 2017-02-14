@@ -14,5 +14,15 @@
   "WeatherFetchingDataError": "Error while fetching weather forecast data...",
   "WeatherUpdatingData": "Updating weather forecast data...",
   "WeatherUpdatedData": "Updated weather forecast data",
-  "WeatherNow": "Now"
+  "Now": "Now",
+  "City": "City",
+  "Country": "Country",
+  "Latitude": "Latitude",
+  "Longitude": "Longitude",
+  "Temperature": "Temperature",
+  "Humidity": "Humidity",
+  "Wind": "Wind",
+  "Description": "Description",
+  "Current": "Current",
+  "WeatherForecast": "Day Weather Forecast"
 }

@@ -3,6 +3,8 @@ import { locale } from './../index.js';
 
 const WeatherNowDisplayer = ({ data, message, status }) => {
   let weather = data ? {
+    location: data.display_location.full,
+    latest_updated: data.observation_time,
     description: data.weather,
     icon: data.icon_url,
     humidity: data.relative_humidity,
@@ -13,18 +15,19 @@ const WeatherNowDisplayer = ({ data, message, status }) => {
   return (
     <div className={data ? 'is-visible' : 'is-hidden' }>
       <ul>
-        <li>Main</li>
-        <li>Daily</li>
-        <li>Hourly</li>
+        <li>{locale.Current}</li>
+        <li>5 {locale.WeatherForecast}</li>
       </ul>
-      <h3>{locale.WeatherNow}</h3>
+      <h3>{locale.Now}</h3>
+      <h4>{weather.location}</h4>
+      <h5>{weather.latest_updated}</h5>
+      <h6>{weather.description}</h6>
       <figure>
         <img src={weather.icon} alt="" title="" />
       </figure>
-      Temp: {weather.temp}°C
-      Desc: {weather.description}
-      Humidity: {weather.humidity}
-      Wind: {weather.wind}km/h
+      {locale.Temperature}: {weather.temp}°C
+      {locale.Humidity}: {weather.humidity}
+      {locale.Wind}: {weather.wind}km/h
     </div>
   );
 };
