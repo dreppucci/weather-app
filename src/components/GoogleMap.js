@@ -2,6 +2,7 @@ import React from 'react';
 import { locale, store } from './../index.js';
 import settings from '../settings/keys.json';
 import CityName from '../containers/CityName';
+import { getGoogleMapsPlaceInfo } from '../containers/GoogleMapPlace';
 import { fetchCity, printCity, cityError, cityUpdateStatus, removeCity } from '../actions/city';
 import { updateWeatherType } from '../actions/weather';
 
@@ -50,11 +51,12 @@ class GoogleMap extends React.Component {
 
         return;
       }
-      
+      console.log(getGoogleMapsPlaceInfo(place, 'country') );
+
       store.dispatch(
         printCity(
           place.name,
-          place.address_components[4] ? place.address_components[4].short_name : place.address_components[3].short_name,
+          getGoogleMapsPlaceInfo(place, 'country'),
           place.geometry.location.lat(),
           place.geometry.location.lng()
         )
