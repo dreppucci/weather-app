@@ -54,3 +54,14 @@ html
 
 .is-hidden
   display: none;
+
+.is-active
+  text-decoration: none;
+  pointer-events: none;
+
+.is-placeholder-focused
+  @include font-size(8)
+  @include css3-prefix('transform', 'translate(0%, -140%)')
+
+[placeholder]:focus::-webkit-input-placeholder
+  color: transparent;

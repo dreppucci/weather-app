@@ -2,7 +2,8 @@ import React from 'react';
 import { locale, store } from './../index.js';
 import settings from '../settings/keys.json';
 import CityName from '../containers/CityName';
-import { fetchCity, printCity, cityError, cityUpdateStatus } from '../actions/city';
+import { fetchCity, printCity, cityError, cityUpdateStatus, removeCity } from '../actions/city';
+import { updateWeatherType } from '../actions/weather';
 
 const googleMapApiFile = `https://maps.googleapis.com/maps/api/js?key=${settings.GoogleMaps}&libraries=places&callback=initMap`;
 
@@ -36,6 +37,9 @@ class GoogleMap extends React.Component {
 
     autocomplete.addListener('place_changed', function() {
 
+      store.dispatch( removeCity() );
+      store.dispatch( updateWeatherType('current') );
+
       let place = autocomplete.getPlace();
 
       if (!place.geometry) {
@@ -65,6 +69,9 @@ class GoogleMap extends React.Component {
 
   requestGeoPosition() {
     if (navigator.geolocation) {
+      store.dispatch( removeCity() );
+      store.dispatch( updateWeatherType('current') );
+
       store.dispatch( cityUpdateStatus('GEOLOCATING_CITY') );
 
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -78,7 +85,7 @@ class GoogleMap extends React.Component {
           )
         );
 
-      }.bind(this), function() {
+      }.bind(this), function(error) {
         store.dispatch(
           cityError('DENIED_GEOLOCATION')
         );
@@ -94,7 +101,7 @@ class GoogleMap extends React.Component {
           <span className="search-form__input-info">{locale.SearchFormInputPlaceholder}</span>
         </div>
         <div className="search-form__input-wrapper">
-          <a href="#" className="search-form__geo-button" onClick={this.requestGeoPosition.bind(this)}>{locale.SearchFormGeolocalizeMe}</a>
+          <a href="javascript:void(0)" className="search-form__geo-button" onClick={this.requestGeoPosition.bind(this)}>{locale.SearchFormGeolocalizeMe}</a>
         </div>
       </div>
     );

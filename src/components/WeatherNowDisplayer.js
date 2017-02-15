@@ -1,33 +1,35 @@
 import React, { PropTypes } from 'react';
 import { locale } from './../index.js';
 
-const WeatherNowDisplayer = ({ data, message, status }) => {
-  let weather = data ? {
-    location: data.display_location.full,
-    latest_updated: data.observation_time,
-    description: data.weather,
-    icon: data.icon_url,
-    humidity: data.relative_humidity,
-    temp: data.temp_c,
-    wind: data.wind_kph
-  } : 'empty';
+const WeatherNowDisplayer = ({ data, type, message, status }) => {
+  let currentWeather = <span>empty</span>;
+
+  try {
+    currentWeather = data && type === 'current' ? (
+      <div>
+        <h4>{data.display_location.full}</h4>
+        <h5>{data.observation_time}</h5>
+        <h6>{data.weather}</h6>
+        <figure>
+          <img src={data.icon_url} alt="" title="" />
+        </figure>
+        <ul>
+          <li>{locale.Temperature}: {data.relative_humidity}°C</li>
+          <li>{locale.Humidity}: {data.temp_c}</li>
+          <li>{locale.Wind}: {data.wind_kph}km/h</li>
+        </ul>
+      </div>
+    ) : <span>empty</span>;
+  }
+  catch(error) {
+    console.log(error);
+    currentWeather = <span>empty</span>;
+  }
 
   return (
-    <div className={data ? 'is-visible' : 'is-hidden' }>
-      <ul>
-        <li>{locale.Current}</li>
-        <li>5 {locale.WeatherForecast}</li>
-      </ul>
+    <div className={data ? 'weather-forecast__now is-visible' : 'weather-forecast__now is-hidden' }>
       <h3>{locale.Now}</h3>
-      <h4>{weather.location}</h4>
-      <h5>{weather.latest_updated}</h5>
-      <h6>{weather.description}</h6>
-      <figure>
-        <img src={weather.icon} alt="" title="" />
-      </figure>
-      {locale.Temperature}: {weather.temp}°C
-      {locale.Humidity}: {weather.humidity}
-      {locale.Wind}: {weather.wind}km/h
+      {currentWeather}
     </div>
   );
 };

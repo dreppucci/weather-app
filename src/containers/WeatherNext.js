@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { fetchWeatherNow } from '../actions/weather';
-import WeatherNowDisplayer from '../components/WeatherNowDisplayer';
+import { fetchWeatherNext } from '../actions/weather';
+import WeatherNextDisplayer from '../components/WeatherNextDisplayer';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     city = ownProps.store.getState().cityReducer.city;
 
   dispatch(
-    fetchWeatherNow(
+    fetchWeatherNext(
       country,
       city
     )
@@ -25,9 +25,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {};
 };
 
-const weatherNow = connect(
+const weatherNext = connect(
   mapStateToProps,
   mapDispatchToProps
-)(WeatherNowDisplayer);
+)(WeatherNextDisplayer);
 
-export default weatherNow;
+export default weatherNext;

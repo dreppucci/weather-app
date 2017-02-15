@@ -1,6 +1,18 @@
 import { locale } from './../index.js';
 
-var weatherReducer = function(state = [], action) {
+export var weatherTypeReducer = function(state = { 'type': 'UPDATING_TYPE', 'tab': 'current' }, action) {
+  switch (action.type) {
+    case 'UPDATING_TYPE':
+      return {
+        type: action.type,
+        tab: action.tab
+      };
+    default:
+      return state;
+  }
+};
+
+export var weatherReducer = function(state = [], action) {
 
   switch (action.type) {
     case 'FETCHING_WEATHER':
@@ -33,5 +45,3 @@ var weatherReducer = function(state = [], action) {
       return state;
   }
 };
-
-export default weatherReducer;

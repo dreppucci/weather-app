@@ -1,51 +1,26 @@
 import React, { PropTypes } from 'react';
 
-import { locale, store } from './../index.js';
-import { fetchWeather } from '../actions/weather';
+import { locale } from './../index.js';
+import { fetchWeatherNow } from '../actions/weather';
 
+import WeatherForecastType from './../containers/WeatherForecastType';
 import WeatherNow from './../containers/WeatherNow';
+import WeatherNext from './../containers/WeatherNext';
 
 class WeatherForecast extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
-    function select(state, value) {
-      return state.cityReducer[value];
-    };
-
-    let currentLat, currentLng, currentCountry, currentCity;
-
-    var handleChange = function() {
-      let previousLat = currentLat,
-        previousLng = currentLng,
-        previousCountry = currentCountry,
-        previousCity = currentCity;
-
-      currentCountry = select(store.getState(), 'country');
-      currentCity = select(store.getState(), 'city');
-
-      if (previousCountry !== currentCountry && previousCity !== currentCity) {
-        store.dispatch(
-          fetchWeather(
-            currentCountry,
-            currentCity
-          )
-        ).then( (state) => {
-          console.log(state);
-        });
-      };
-    };
-
-    store.subscribe(handleChange);
+    const { store } = this.props;
   }
 
   render() {
+    const props = this.props;
+    const { store } = props;
+
     return (
       <div className="weather-forecast">
-        <WeatherNow />
+        <WeatherForecastType />
+        {store.getState().weatherTypeReducer.tab == 'current' ? <WeatherNow store={store} /> : <WeatherNext store={store} />}
       </div>
     );
   }

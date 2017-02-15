@@ -9,6 +9,7 @@ export const RECOVER_CITY = 'RECOVER_CITY';
 export const RECOVER_CITY_ERROR = 'RECOVER_CITY_ERROR';
 export const DENIED_GEOLOCATION = 'DENIED_GEOLOCATION';
 export const CITY_UNKNOWN = 'CITY_UNKNOWN';
+export const REMOVE_CITY = 'REMOVE_CITY';
 
 export var printCity = function(city, country, lat, lng) {
   return {
@@ -65,5 +66,12 @@ export var fetchCity = function(lat, lng) {
       .then(response => response.json() )
       .then(json => dispatch(recoverCity(lat, lng, json)))
       .catch(error => dispatch(recoverCityError(error)));
+  };
+};
+
+export var removeCity = function() {
+  return {
+    type: REMOVE_CITY,
+    status: 200
   };
 };

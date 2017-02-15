@@ -47,6 +47,15 @@ var cityReducer = function(state = [], action) {
         message: locale.SearchFormCityUnknown,
         status: action.status
       };
+    case 'REMOVE_CITY':
+      return {
+        city: undefined,
+        country: undefined,
+        lat: undefined,
+        lng: undefined,
+        message: locale.SearchFormCityUnknown,
+        status: action.status
+      };
     default:
       return state;
   }

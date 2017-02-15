@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import cityReducer from './cityReducer';
-import weatherReducer from './weatherReducer';
+import { weatherTypeReducer, weatherReducer } from './weatherReducer';
 
 const weatherApp = combineReducers({
   cityReducer,
+  weatherTypeReducer,
   weatherReducer
 });
 

@@ -7,10 +7,12 @@ const CityDisplayer = ({ city, country, lat, lng, message, status }) => {
       <div className={ status != 200 ? 'message is-hidden' : 'message is-visible' }>{message}</div>
       <div className="city">
         <div className={ city != null ? 'is-visible' : 'is-hidden' }>
-          {locale.City}: {city}
-          {locale.Country}: {country}
-          {locale.Latitude}: {lat}
-          {locale.Longitude}: {lng}
+          <ul>
+            <li>{locale.Country}: {country}</li>
+            <li>{locale.City}: {city}</li>
+            <li>{locale.Latitude}: {lat}</li>
+            <li>{locale.Longitude}: {lng}</li>
+          </ul>
         </div>
       </div>
     </div>
