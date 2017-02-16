@@ -28,10 +28,11 @@
 
   input
     border: 1px $color-global-borders solid
+    border-right: none
     @include font-size(14)
     line-height: 1em
     color: $color-global-inactive
-    padding: .2em 10px
+    padding: .5em 10px .2em
 
     &:focus
       color: $color-global-black
@@ -54,3 +55,20 @@
 
 .is-valued + .search-form__input-info
   @extend .is-placeholder-focused
+
+.search-form__geo-button
+  border: 1px $color-global-borders solid
+  border-left: none
+  display: block
+  height: 43px
+  padding: 0 .5em
+
+  svg
+    fill: $color-global-inactive
+    width: 30px
+    height: 41px
+    @include transition(fill .5s $transition-easing-easeInOutCirc)
+
+  &:hover
+    svg
+      fill: $color-global-tab

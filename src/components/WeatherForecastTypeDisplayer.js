@@ -5,11 +5,11 @@ const WeatherForecastTypeDisplayer = ({ onClick, tab }) => {
   return (
     <div className="weather-forecast__tab">
       <ul>
-        <li><a href="#" className={tab == 'current' ? 'is-active' : ''} onClick={e => {
+        <li><a href="#" className={tab == 'current' ? 'is-active' : ''} title={locale.Now} onClick={e => {
          e.preventDefault();
          onClick('current');
-       }}>{locale.Current}</a></li>
-        <li><a href="#" className={tab == 'forecast' ? 'is-active' : ''} onClick={e => {
+       }}>{locale.Now}</a></li>
+        <li><a href="#" className={tab == 'forecast' ? 'is-active' : ''} title={locale.WeatherForecast} onClick={e => {
          e.preventDefault();
          onClick('forecast');
        }}>{locale.WeatherForecast}</a></li>

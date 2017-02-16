@@ -2,34 +2,38 @@ import React, { PropTypes } from 'react';
 import { locale } from './../index.js';
 
 const WeatherNowDisplayer = ({ data, type, message, status }) => {
-  let currentWeather = <span>empty</span>;
+  let currentWeather = <span className="feedback">{locale.Loading}</span>;
 
   try {
     currentWeather = data && type === 'current' ? (
-      <div>
-        <h4>{data.display_location.full}</h4>
-        <h5>{data.observation_time}</h5>
-        <h6>{data.weather}</h6>
-        <figure>
-          <img src={data.icon_url} alt="" title="" />
-        </figure>
-        <ul>
-          <li>{locale.Temperature}: {data.relative_humidity}°C</li>
-          <li>{locale.Humidity}: {data.temp_c}</li>
-          <li>{locale.Wind}: {data.wind_kph}km/h</li>
-        </ul>
+      <div className="weather-forecast__cell">
+        <div className="weather-forecast__day-infos">
+          <h5>{locale.Today}</h5>
+          <h6>{data.weather}</h6>
+        </div>
+        <div className="weather-forecast__day-values">
+          <figure>
+            <img src={data.icon_url} alt="" title="" />
+          </figure>
+          <ul>
+            <li><strong>{locale.Temperature}</strong> {data.temp_c}°C</li>
+            <li><strong>{locale.Humidity}</strong> {data.relative_humidity}</li>
+            <li><strong>{locale.Wind}</strong> {data.wind_kph}km/h</li>
+          </ul>
+        </div>
       </div>
-    ) : <span>empty</span>;
+    ) : <span className="feedback feedback--error">{locale.LoadingError}</span>;
   }
   catch(error) {
     console.log(error);
-    currentWeather = <span>empty</span>;
+    currentWeather = <span className="feedback feedback--error">{locale.LoadingError}</span>;
   }
 
   return (
-    <div className={data ? 'weather-forecast__now is-visible' : 'weather-forecast__now is-hidden' }>
-      <h3>{locale.Now}</h3>
-      {currentWeather}
+    <div className="weather-forecast__content weather-forecast__now">
+      <div className="weather-forecast__cell-wrapper">
+        {currentWeather}
+      </div>
     </div>
   );
 };

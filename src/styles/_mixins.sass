@@ -358,77 +358,46 @@
   
 
 
-=bp-xxlarge
+=bp-1680
   @media only screen and (max-width: 1680px),
   only screen and (max-device-width: 1680px)
     @content;
   
 
 
-=bp-xlarge
+=bp-1440
   @media only screen and (max-width: 1440px),
   only screen and (max-device-width: 1440px)
     @content;
   
 
 
-=bp-large
+=bp-1280
   @media only screen and (max-width: 1280px),
   only screen and (max-device-width: 1280px)
     @content;
-  
 
-
-=bp-medium
+=bp-1024-landscape
   @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation:landscape),
   only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation:landscape)
     @content;
   
-
-
-=bp-xmedium
+=bp-1023
   @media only screen and (min-width: 768px) and (max-width: 1023px)
     @content;
   
-
-
-=bp-small
+=bp-768-portrait
   @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation:portrait),
   only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation:portrait)
-    @content;
-  
+    @content;  
 
-
-=bp-small-qb
-  @media only screen and (min-width: 620px) and (max-width: 920px) and (orientation:portrait),
-  only screen and (min-device-width: 620px) and (max-device-width: 920px) and (orientation:portrait)
-    @content;
-  
-
-
-=bp-xsmall
+=bp-767
   @media only screen and (max-width: 767px),
   only screen and (max-device-width: 767px)
     @content;
-  
 
-
-=bp-xsmall-qb
-  @media only screen and (max-width: 619px),
-  only screen and (max-device-width: 619px)
-    @content;
-  
-
-
-=bp-xsmall-landscape
+=bp-767-landscape
   @media only screen and (max-width: 767px) and (orientation: landscape)
-    @content;
-  
-
-
-=bp-xheight-landscape
-  @media only screen and (max-height: 800px) and (orientation: landscape),
-  only screen and (max-device-height: 800px) and (orientation: landscape)
     @content;
   
 =font-size($sizeValue: 16)

@@ -1,5 +1,6 @@
 {
   "Now": "Now",
+  "Today": "Today",
   "City": "City",
   "Country": "Country",
   "Latitude": "Latitude",
@@ -10,8 +11,11 @@
   "Temperature": "Temperature",
   "Humidity": "Humidity",
   "Wind": "Wind",
+  "AverageWind": "Average wind",
   "Description": "Description",
   "Current": "Current",
+  "Loading": "Loading...",
+  "LoadingError": "Loading error",
   "SearchFormTitle": "Discover the weather",
   "SearchFormIntro": "Weather App® will reveal the weather in the city you're searching for until next ten days",
   "SearchFormInputPlaceholder": "Type a city name",

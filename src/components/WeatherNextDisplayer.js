@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { locale } from './../index.js';
 
 const WeatherNextDisplayer = ({ data, type, message, status }) => {
-  let weatherDays = <span>empty</span>,
+  let weatherDays = <span className="feedback">{locale.Loading}</span>,
     weatherForecastDays;
 
   try {
@@ -10,31 +10,36 @@ const WeatherNextDisplayer = ({ data, type, message, status }) => {
 
     weatherForecastDays = weatherDays.map((day, index) => {
       return (
-        <div className="weather-forecast__row" key={index}>
-          <h5>{day.date.weekday}</h5>
-          <h6>{day.conditions}</h6>
-          <figure>
-            <img src={day.icon_url} alt="" title="" />
-          </figure>
-          <ul>
-            <li>{locale.HighestTemperature}: {day.high.celsius}°C</li>
-            <li>{locale.LowestTemperature}: {day.low.celsius}°C</li>
-            <li>{locale.Humidity}: {day.avehumidity}</li>
-            <li>{locale.Wind}: {day.avewind.kph}km/h</li>
-          </ul>
+        <div className="weather-forecast__cell" key={index}>
+          <div className="weather-forecast__day-infos">
+            <h5>{day.date.weekday},<span>{day.date.day} {day.date.monthname}</span></h5>
+            <h6>{day.conditions}</h6>
+          </div>
+          <div className="weather-forecast__day-values" key={index}>
+            <figure>
+              <img src={day.icon_url} alt="" title="" />
+            </figure>
+            <ul>
+              <li><strong>{locale.HighestTemperature}</strong> {day.high.celsius}°C</li>
+              <li><strong>{locale.LowestTemperature}</strong> {day.low.celsius}°C</li>
+              <li><strong>{locale.Humidity}</strong> {day.avehumidity}%</li>
+              <li><strong>{locale.AverageWind}</strong> {day.avewind.kph}km/h</li>
+            </ul>
+          </div>
         </div>
       );
     });
   }
   catch(error) {
     console.log(error);
-    weatherDays = <span>empty</span>;
+    weatherDays = <span className="feedback feedback--error">{locale.LoadingError}</span>;
   }
 
   return (
-    <div className={data ? 'weather-forecast__next is-visible' : 'weather-forecast__next is-hidden' }>
-      <h3>{locale.WeatherForecast}</h3>
-      {weatherForecastDays}
+    <div className="weather-forecast__content weather-forecast__next">
+      <div className="weather-forecast__cell-wrapper">
+        {weatherForecastDays}
+      </div>
     </div>
   );
 };

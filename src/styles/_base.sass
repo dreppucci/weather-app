@@ -1,18 +1,17 @@
 *::-webkit-selection
-  background: $color-global-white
-  color: $color-global-black
+  background: $color-global-tab
+  color: $color-global-white
   text-shadow: none
 
 ::-moz-selection
-  background: $color-global-white
-  color: $color-global-black
+  background: $color-global-tab
+  color: $color-global-white
   text-shadow: none
 
 ::selection
-  background: $color-global-white
-  color: $color-global-black
+  background: $color-global-tab
+  color: $color-global-white
   text-shadow: none
-
 
 html
   font-smooth:always
@@ -31,8 +30,6 @@ html
     -webkit-font-smoothing: antialiased
     -moz-font-smoothing: antialiased
     overflow-x: hidden;
-  
-
 
 #root
   width: 100%
@@ -61,7 +58,24 @@ html
 
 .is-placeholder-focused
   @include font-size(8)
-  @include css3-prefix('transform', 'translate(0%, -140%)')
+  @include css3-prefix('transform', 'translate(0%, -170%)')
 
 [placeholder]:focus::-webkit-input-placeholder
   color: transparent;
+
+.city
+  text-align: center
+  @include font-size(12)
+  line-height: 1.2em
+  margin: .5em 0 1em
+  color: $color-global-black
+
+.feedback
+  text-align: center
+  @include font-size(12)
+  line-height: 1.2em
+  margin: .5em 0 1em
+  color: $color-global-borders
+
+.feedback--error
+  color: $color-global-errors
