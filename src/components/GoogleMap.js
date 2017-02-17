@@ -51,10 +51,10 @@ class GoogleMap extends React.Component {
 
         return;
       }
-
       store.dispatch(
         printCity(
           place.name,
+          [ getGoogleMapsPlaceInfo(place, 'administrative_area_level_1', 'short_name'), getGoogleMapsPlaceInfo(place, 'administrative_area_level_1', 'long_name')],
           getGoogleMapsPlaceInfo(place, 'country'),
           place.geometry.location.lat(),
           place.geometry.location.lng()

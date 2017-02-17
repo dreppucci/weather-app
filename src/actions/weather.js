@@ -9,32 +9,36 @@ export const UPDATING_WEATHER = 'UPDATING_WEATHER';
 export const UPDATED_WEATHER = 'UPDATED_WEATHER';
 export const EMPTY_WEATHER = 'EMPTY_WEATHER';
 
-export var updateWeatherType = function(tab) {
+export let updateWeatherType = function(tab) {
   return {
     type: UPDATING_TYPE,
     tab: tab
   };
 };
 
-export var fetchWeatherNow = function(country, city, lat, lng) {
+export let fetchWeatherNow = function(country, state, city, lat, lng) {
   return (dispatch, getState) => {
-    return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/conditions/q/${country}/${city}.json`)
+    let trimmedCity = city.trim().replace(/ /ig, ''),
+      shortState = state[0] !== state[1] ? '/'+state[0] : '';
+    return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/conditions/q/${country}${shortState}/${trimmedCity}.json`)
       .then(response => response.json() )
       .then(json => dispatch(updateWeather(json.current_observation)))
       .catch(error => dispatch(fetchingWeatherError(error)));
   };
 };
 
-export var fetchWeatherNext = function(country, city, lat, lng) {
+export let fetchWeatherNext = function(country, state, city, lat, lng) {
   return (dispatch, getState) => {
-    return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/forecast10day/q/${country}/${city}.json`)
+    let trimmedCity = city.trim().replace(/ /ig, ''),
+      shortState = state[0] !== state[1] ? '/'+state[0] : '';
+    return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/forecast10day/q/${country}${shortState}/${trimmedCity}.json`)
       .then(response => response.json() )
       .then(json => dispatch(updateWeather(json.forecast)))
       .catch(error => dispatch(fetchingWeatherError(error)));
   };
 };
 
-var updateWeather = function(json) {
+let updateWeather = function(json) {
   return {
     type: UPDATED_WEATHER,
     data: json,
@@ -44,7 +48,7 @@ var updateWeather = function(json) {
   };
 };
 
-var fetchingWeatherError = function(error) {
+let fetchingWeatherError = function(error) {
   return {
     type: FETCHING_WEATHER_ERROR,
     receivedAt: Date.now(),
@@ -53,7 +57,7 @@ var fetchingWeatherError = function(error) {
   };
 };
 
-var emptyWeather = function() {
+let emptyWeather = function() {
   return {
     type: UPDATED_WEATHER,
     data: undefined,

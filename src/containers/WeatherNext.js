@@ -13,11 +13,13 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const country = ownProps.store.getState().cityReducer.country,
+    state = ownProps.store.getState().cityReducer.state,
     city = ownProps.store.getState().cityReducer.city;
 
   dispatch(
     fetchWeatherNext(
       country,
+      state,
       city
     )
   );

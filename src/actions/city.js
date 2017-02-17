@@ -12,10 +12,11 @@ export const DENIED_GEOLOCATION = 'DENIED_GEOLOCATION';
 export const CITY_UNKNOWN = 'CITY_UNKNOWN';
 export const REMOVE_CITY = 'REMOVE_CITY';
 
-export let printCity = function(city, country, lat, lng) {
+export let printCity = function(city, state, country, lat, lng) {
   return {
     type: UPDATE_CITY,
     city: city,
+    state: state,
     country: country,
     lat: lat,
     lng: lng,
@@ -29,6 +30,7 @@ let recoverCity = function(lat, lng, json) {
   return {
     type: RECOVER_CITY,
     city: getGoogleMapsPlaceInfo(json.results[2], 'locality'),
+    state: getGoogleMapsPlaceInfo(json.results[2], 'administrative_area_level_1', 'short_name'),
     country: getGoogleMapsPlaceInfo(json.results[2], 'country'),
     lat: lat,
     lng: lng,

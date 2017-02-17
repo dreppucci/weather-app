@@ -6,6 +6,7 @@ var cityReducer = function(state = [], action) {
     case 'UPDATE_CITY':
       return {
         city: action.city,
+        state: action.state,
         country: action.country,
         lat: action.lat,
         lng: action.lng,
@@ -16,6 +17,7 @@ var cityReducer = function(state = [], action) {
     case 'RECOVER_CITY':
       return {
         city: action.city,
+        state: action.state,
         country: action.country,
         lat: action.lat,
         lng: action.lng,
@@ -50,6 +52,7 @@ var cityReducer = function(state = [], action) {
     case 'REMOVE_CITY':
       return {
         city: undefined,
+        state: undefined,
         country: undefined,
         lat: undefined,
         lng: undefined,
