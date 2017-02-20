@@ -75,30 +75,37 @@ module.exports = {
     // We use `fallback` instead of `root` because we want `node_modules` to "win"
     // if there any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebookincubator/create-react-app/issues/253
-    fallback: paths.nodePaths,
+    //fallback: paths.nodePaths,
     // These are the reasonable defaults supported by the Node ecosystem.
     // We also include JSX as a common component filename extension to support
     // some tools, although we do not recommend using it, see:
     // https://github.com/facebookincubator/create-react-app/issues/290
-    extensions: ['.js', '.json', '.jsx', ''],
+    extensions: ['.js', '.json', '.jsx'],
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web'
-    }
+    },
+    modules: [ paths.nodePaths, 'node_modules'
   },
   
   module: {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
-    preLoaders: [
+    /*preLoaders: [
       {
         test: /\.(js|jsx)$/,
         loader: 'eslint',
         include: paths.appSrc
       }
-    ],
+    ],*/
     loaders: [
+      {
+        enforce: 'pre',
+        test: /\.(js|jsx)$/,
+        loader: 'eslint',
+        include: paths.appSrc,
+      },
       // Default loader: load all assets that are not handled
       // by other loaders with the url loader.
       // Note: This list needs to be updated with every change of extensions
@@ -173,7 +180,7 @@ module.exports = {
   },
   
   // We use PostCSS for autoprefixing only.
-  postcss: function() {
+  /*postcss: function() {
     return [
       autoprefixer({
         browsers: [
@@ -184,7 +191,7 @@ module.exports = {
         ]
       }),
     ];
-  },
+  },*/
   plugins: [
     // Makes the public URL available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -240,7 +247,8 @@ module.exports = {
     // having to parse `index.html`.
     new ManifestPlugin({
       fileName: 'asset-manifest.json'
-    })
+    }),
+    new webpack.LoaderOptionsPlugin({ options: { postcss: [ autoprefixer ] } })
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
