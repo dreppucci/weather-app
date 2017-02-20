@@ -1,11 +1,12 @@
 import React from 'react';
-import { locale, store } from './../index.js';
 import settings from '../settings/keys.json';
 import CityName from '../containers/CityName';
 import { getGoogleMapsPlaceInfo } from '../containers/GoogleMapPlace';
 import { fetchCity, printCity, cityError, cityUpdateStatus, removeCity } from '../actions/city';
 import { updateWeatherType } from '../actions/weather';
 
+const __LANG = navigator.language !== 'en-US' ? 'en-US' : navigator.language;
+const locale = require('./../locale/' + __LANG + '.json');
 const googleMapApiFile = `https://maps.googleapis.com/maps/api/js?key=${settings.GoogleMaps}&libraries=places&callback=initMap`;
 
 class GoogleMap extends React.Component {
@@ -19,6 +20,8 @@ class GoogleMap extends React.Component {
   }
 
   componentDidMount() {
+    
+
     window.initMap = this.initMap.bind(this);
 
     var script = window.document.createElement('script');
@@ -30,6 +33,8 @@ class GoogleMap extends React.Component {
   }
 
   initMap() {
+    const { store } = this.props;
+
     let input = document.getElementById('city'),
       options = {
         types: ['(cities)']
@@ -70,6 +75,8 @@ class GoogleMap extends React.Component {
   }
 
   requestGeoPosition() {
+    const { store } = this.props;
+    
     if (navigator.geolocation) {
       store.dispatch( removeCity() );
       store.dispatch( updateWeatherType('current') );

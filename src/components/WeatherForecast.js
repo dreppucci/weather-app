@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 
-import { locale } from './../index.js';
 import { fetchWeatherNow } from '../actions/weather';
 
 import WeatherForecastType from './../containers/WeatherForecastType';
 import WeatherNow from './../containers/WeatherNow';
 import WeatherNext from './../containers/WeatherNext';
+
+const __LANG = navigator.language !== 'en-US' ? 'en-US' : navigator.language;
+const locale = require('./../locale/' + __LANG + '.json');
 
 class WeatherForecast extends React.Component {
 

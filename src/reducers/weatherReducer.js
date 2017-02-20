@@ -1,4 +1,5 @@
-import { locale } from './../index.js';
+const __LANG = navigator.language !== 'en-US' ? 'en-US' : navigator.language;
+const locale = require('./../locale/' + __LANG + '.json');
 
 export var weatherTypeReducer = function(state = { 'type': 'UPDATING_TYPE', 'tab': 'current' }, action) {
   switch (action.type) {

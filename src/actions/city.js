@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import settings from './../settings/keys.json';
-import { locale } from './../index.js';
 import { getGoogleMapsPlaceInfo } from './../containers/GoogleMapPlace';
 
 export const UPDATE_CITY = 'UPDATE_CITY';
@@ -11,6 +10,9 @@ export const RECOVER_CITY_ERROR = 'RECOVER_CITY_ERROR';
 export const DENIED_GEOLOCATION = 'DENIED_GEOLOCATION';
 export const CITY_UNKNOWN = 'CITY_UNKNOWN';
 export const REMOVE_CITY = 'REMOVE_CITY';
+
+const __LANG = navigator.language !== 'en-US' ? 'en-US' : navigator.language;
+const locale = require('./../locale/' + __LANG + '.json');
 
 export let printCity = function(city, state, country, lat, lng) {
   return {
