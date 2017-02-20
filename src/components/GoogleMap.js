@@ -51,6 +51,7 @@ class GoogleMap extends React.Component {
 
         return;
       }
+
       store.dispatch(
         printCity(
           place.name,

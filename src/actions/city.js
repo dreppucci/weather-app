@@ -30,7 +30,7 @@ let recoverCity = function(lat, lng, json) {
   return {
     type: RECOVER_CITY,
     city: getGoogleMapsPlaceInfo(json.results[2], 'locality'),
-    state: getGoogleMapsPlaceInfo(json.results[2], 'administrative_area_level_1', 'short_name'),
+    state: [ getGoogleMapsPlaceInfo(json.results[2], 'administrative_area_level_1', 'short_name'), getGoogleMapsPlaceInfo(json.results[2], 'administrative_area_level_1', 'long_name')],
     country: getGoogleMapsPlaceInfo(json.results[2], 'country'),
     lat: lat,
     lng: lng,
