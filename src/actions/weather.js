@@ -18,9 +18,7 @@ export let updateWeatherType = function(tab) {
 
 export let fetchWeatherNow = function(country, state, city, lat, lng) {
   return (dispatch, getState) => {
-    let trimmedCity = city.trim().replace(/ /ig, ''),
-      shortState = state[0] !== state[1] ? '/'+state[0] : '';
-    return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/conditions/q/${country}${shortState}/${trimmedCity}.json`)
+    return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/conditions/q/${lat},${lng}.json`)
       .then(response => response.json() )
       .then(json => dispatch(updateWeather(json.current_observation)))
       .catch(error => dispatch(fetchingWeatherError(error)));
@@ -29,9 +27,7 @@ export let fetchWeatherNow = function(country, state, city, lat, lng) {
 
 export let fetchWeatherNext = function(country, state, city, lat, lng) {
   return (dispatch, getState) => {
-    let trimmedCity = city.trim().replace(/ /ig, ''),
-      shortState = state[0] !== state[1] ? '/'+state[0] : '';
-    return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/forecast10day/q/${country}${shortState}/${trimmedCity}.json`)
+    return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/forecast10day/q/${lat},${lng}.json`)
       .then(response => response.json() )
       .then(json => dispatch(updateWeather(json.forecast)))
       .catch(error => dispatch(fetchingWeatherError(error)));
