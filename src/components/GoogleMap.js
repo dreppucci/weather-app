@@ -15,12 +15,12 @@ class GoogleMap extends React.Component {
     super(props);
 
     this.state = {
+      city: '',
       searchInputFull: false
     };
   }
 
   componentDidMount() {
-    
 
     window.initMap = this.initMap.bind(this);
 
@@ -29,7 +29,6 @@ class GoogleMap extends React.Component {
     script.async = true;
 
     document.body.appendChild(script);
-
   }
 
   initMap() {
@@ -70,6 +69,17 @@ class GoogleMap extends React.Component {
     }.bind(this));
   }
 
+  onChange(evt) {
+    let city = evt.target.value;
+
+    let props = {
+      city: city,
+      searchInputFull: city.length === 0 ? false : true
+    }
+
+    this.setState(props);
+  }
+
   onBlurPlaceholder(evt) {
     this.setState({ searchInputFull: evt.target.value.length === 0 ? false : true });
   }
@@ -106,7 +116,7 @@ class GoogleMap extends React.Component {
     return (
       <div className="r-wrapper">
         <div className="search-form__input-wrapper">
-          <input type="text" id="city" name="city" value={this.city} className={this.state.searchInputFull ? 'is-valued' : ''} onBlur={this.onBlurPlaceholder.bind(this)} required="required" placeholder="" />
+          <input type="text" id="city" name="city" onChange={this.onChange.bind(this)} value={this.state.city} className={this.state.searchInputFull ? 'is-valued' : ''} onBlur={this.onBlurPlaceholder.bind(this)} required="required" placeholder="" />
           <span className="search-form__input-info">{locale.SearchFormInputPlaceholder}</span>
         </div>
         <div className="search-form__input-wrapper">
