@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { store } from './index.js';
 import Header from './components/Header';
 import SearchForm from './components/SearchForm';
 import WeatherForecast from './components/WeatherForecast';
@@ -17,6 +16,7 @@ const App = React.createClass({
   },
 
   componentDidMount() {
+    const { store } = this.props;
 
     function select(state, value) {
       return state[value];
@@ -33,11 +33,14 @@ const App = React.createClass({
   },
 
   render() {
+    const props = this.props;
+    const { store } = props;
+
     return (
       <div className="App">
         <Header />
         
-        <SearchForm />
+        <SearchForm store={store} />
 
         {this.state.weatherDisplay ? <WeatherForecast store={store} /> : ''}
       </div>

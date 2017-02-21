@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import settings from '../settings/keys.json';
-import { locale } from './../index.js';
 
 export const UPDATING_TYPE = 'UPDATING_TYPE';
 export const FETCHING_WEATHER = 'FETCHING_WEATHER';
@@ -8,6 +7,9 @@ export const FETCHING_WEATHER_ERROR = 'FETCHING_WEATHER_ERROR';
 export const UPDATING_WEATHER = 'UPDATING_WEATHER';
 export const UPDATED_WEATHER = 'UPDATED_WEATHER';
 export const EMPTY_WEATHER = 'EMPTY_WEATHER';
+
+const __LANG = navigator.language !== 'en-US' ? 'en-US' : navigator.language;
+const locale = require('./../locale/' + __LANG + '.json');
 
 export let updateWeatherType = function(tab) {
   return {

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { locale } from './../index.js';
+const __LANG = navigator.language !== 'en-US' ? 'en-US' : navigator.language;
+const locale = require('./../locale/' + __LANG + '.json');
 
 const WeatherNextDisplayer = ({ data, type, message, status }) => {
   let weatherDays = <span className="feedback">{locale.Loading}</span>,
