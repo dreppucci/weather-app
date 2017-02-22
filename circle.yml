@@ -3,7 +3,11 @@ machine:
 
   timezone:
     Europe/Rome # Set the timezone
-    
+
+  # Version of ruby to use
+  ruby:
+    version:
+      2.4.0
   node:
     version:
       7.2.1
@@ -14,12 +18,20 @@ machine:
 
   # Add some environment variables
   environment:
-    CIRCLE_ENV: development
+    USER_NAME: dreppucci
+    USER_EMAIL: davide.reppucci@gmail.com
+    CIRCLE_ENV: production
 
 general:
   branches:
+    only:
+      - master
     ignore:
       - gh-pages
+
+test:
+  post:
+    - node scripts/build.js
 
 deployment:
   production:
