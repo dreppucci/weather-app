@@ -41,8 +41,7 @@ cp -a "../${siteSource}/." .
 
 cd ..
 
-shopt -s extglob
-rm -rf !(gh-pages-branch)
+find . -maxdepth 1 ! -name 'gh-pages-branch' ! -name '.git' ! -name '.gitignore' -exec rm -rf {} \;
 mv gh-pages-branch/* .
 rm -R gh-pages-branch/
 
