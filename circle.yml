@@ -3,11 +3,7 @@ machine:
 
   timezone:
     Europe/Rome # Set the timezone
-
-  # Version of ruby to use
-  ruby:
-    version:
-      2.4.0
+    
   node:
     version:
       7.2.1
