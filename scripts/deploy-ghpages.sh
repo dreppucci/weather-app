@@ -11,12 +11,6 @@ remote=$(git config remote.origin.url)
 
 siteSource="build"
 
-if [ ! -d "$siteSource" ]
-then
-    echo "Usage: $0 <site source dir>"
-    exit 1
-fi
-
 npm install
 npm cache clean
 npm rebuild node-sass
