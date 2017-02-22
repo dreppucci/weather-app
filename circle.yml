@@ -31,11 +31,7 @@ general:
       - gh-pages
 
 deployment:
-  staging:
-    branch: /feature_.*/
-    commands:
-      - ./scripts/deploy.sh
   production:
-    branch: master
+    branch: [master, /feature_.*/]
     commands:
       - ./scripts/deploy.sh
