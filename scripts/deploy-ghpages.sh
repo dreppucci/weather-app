@@ -43,7 +43,7 @@ cd ..
 
 find . -maxdepth 1 ! -name 'gh-pages-branch' ! -name '.git' ! -name '.gitignore' -exec rm -rf {} \;
 mv gh-pages-branch/* .
-rm -R gh-pages-branch/
+rm -rf gh-pages-branch
 
 # stage any changes and new files
 git add -A
@@ -51,9 +51,5 @@ git add -A
 git commit --allow-empty -m "Deploy to GitHub pages [ci skip]"
 # and push, but send any output to /dev/null to hide anything sensitive
 git push --force --quiet origin gh-pages > /dev/null 2>&1
-
-# go back to where we started and remove the gh-pages git repo we made and used
-# for deployment
-rm -rf gh-pages-branch
 
 echo "Finished Deployment!"
