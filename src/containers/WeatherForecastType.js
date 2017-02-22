@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { updateWeatherType } from '../actions/weather';
+import * as weather from '../actions/weather';
 import WeatherForecastTypeDisplayer from '../components/WeatherForecastTypeDisplayer';
 
 const mapStateToProps = (state, ownProps) => {
@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onClick: (tab) => {
-      dispatch(updateWeatherType(tab));
+      dispatch(weather.updateType(tab));
       return tab;
     }
   };

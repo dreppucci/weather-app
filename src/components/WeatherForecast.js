@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
 
-import { fetchWeatherNow } from '../actions/weather';
-
 import WeatherForecastType from './../containers/WeatherForecastType';
 import WeatherNow from './../containers/WeatherNow';
 import WeatherNext from './../containers/WeatherNext';

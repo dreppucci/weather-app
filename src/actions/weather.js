@@ -11,32 +11,32 @@ export const EMPTY_WEATHER = 'EMPTY_WEATHER';
 const __LANG = navigator.language !== 'en-US' ? 'en-US' : navigator.language;
 const locale = require('./../locale/' + __LANG + '.json');
 
-export let updateWeatherType = function(tab) {
+export let updateType = function(tab) {
   return {
     type: UPDATING_TYPE,
     tab: tab
   };
 };
 
-export let fetchWeatherNow = function(country, state, city, lat, lng) {
+export let getNow = function(country, state, city, lat, lng) {
   return (dispatch, getState) => {
     return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/conditions/q/${lat},${lng}.json`)
       .then(response => response.json() )
-      .then(json => dispatch(updateWeather(json.current_observation)))
-      .catch(error => dispatch(fetchingWeatherError(error)));
+      .then(json => dispatch(update(json.current_observation)))
+      .catch(error => dispatch(getError(error)));
   };
 };
 
-export let fetchWeatherNext = function(country, state, city, lat, lng) {
+export let getNext = function(country, state, city, lat, lng) {
   return (dispatch, getState) => {
     return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/forecast10day/q/${lat},${lng}.json`)
       .then(response => response.json() )
-      .then(json => dispatch(updateWeather(json.forecast)))
-      .catch(error => dispatch(fetchingWeatherError(error)));
+      .then(json => dispatch(update(json.forecast)))
+      .catch(error => dispatch(getError(error)));
   };
 };
 
-let updateWeather = function(json) {
+let update = function(json) {
   return {
     type: UPDATED_WEATHER,
     data: json,
@@ -46,7 +46,7 @@ let updateWeather = function(json) {
   };
 };
 
-let fetchingWeatherError = function(error) {
+let getError = function(error) {
   return {
     type: FETCHING_WEATHER_ERROR,
     receivedAt: Date.now(),
@@ -55,7 +55,7 @@ let fetchingWeatherError = function(error) {
   };
 };
 
-let emptyWeather = function() {
+let empty = function() {
   return {
     type: UPDATED_WEATHER,
     data: undefined,

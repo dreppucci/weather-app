@@ -14,7 +14,7 @@ export const REMOVE_CITY = 'REMOVE_CITY';
 const __LANG = navigator.language !== 'en-US' ? 'en-US' : navigator.language;
 const locale = require('./../locale/' + __LANG + '.json');
 
-export let printCity = function(city, state, country, lat, lng) {
+export let print = function(city, state, country, lat, lng) {
   return {
     type: UPDATE_CITY,
     city: city,
@@ -28,7 +28,7 @@ export let printCity = function(city, state, country, lat, lng) {
   };
 };
 
-let recoverCity = function(lat, lng, json) {
+let recover = function(lat, lng, json) {
   return {
     type: RECOVER_CITY,
     city: getGoogleMapsPlaceInfo(json.results[2], 'locality'),
@@ -42,7 +42,7 @@ let recoverCity = function(lat, lng, json) {
   };
 };
 
-let recoverCityError = function(error) {
+let recoverError = function(error) {
   return {
     type: RECOVER_CITY_ERROR,
     message: error,
@@ -50,14 +50,14 @@ let recoverCityError = function(error) {
   };
 };
 
-export let cityUpdateStatus = function(type) {
+export let updateStatus = function(type) {
   return {
     type: type,
     status: 200
   };
 };
 
-export let cityError = function(error, message) {
+export let error = function(error, message) {
   return {
     type: error,
     message: message,
@@ -65,16 +65,16 @@ export let cityError = function(error, message) {
   };
 };
 
-export let fetchCity = function(lat, lng) {
+export let get = function(lat, lng) {
   return (dispatch, getState) => {
     return fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${settings.GoogleMaps}`)
       .then(response => response.json() )
-      .then(json => dispatch(recoverCity(lat, lng, json)))
-      .catch(error => dispatch(recoverCityError(error)));
+      .then(json => dispatch(recover(lat, lng, json)))
+      .catch(error => dispatch(recoverError(error)));
   };
 };
 
-export let removeCity = function() {
+export let remove = function() {
   return {
     type: REMOVE_CITY,
     status: 200

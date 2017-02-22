@@ -2,8 +2,8 @@ import React from 'react';
 import settings from '../settings/keys.json';
 import CityName from '../containers/CityName';
 import { getGoogleMapsPlaceInfo } from '../containers/GoogleMapPlace';
-import { fetchCity, printCity, cityError, cityUpdateStatus, removeCity } from '../actions/city';
-import { updateWeatherType } from '../actions/weather';
+import * as city from '../actions/city';
+import * as weather from '../actions/weather';
 
 const __LANG = navigator.language !== 'en-US' ? 'en-US' : navigator.language;
 const locale = require('./../locale/' + __LANG + '.json');
@@ -42,22 +42,22 @@ class GoogleMap extends React.Component {
 
     autocomplete.addListener('place_changed', function() {
 
-      store.dispatch( removeCity() );
-      store.dispatch( updateWeatherType('current') );
+      store.dispatch( city.remove() );
+      store.dispatch( weather.updateType('current') );
 
       let place = autocomplete.getPlace();
 
       if (!place.geometry) {
 
         store.dispatch(
-          cityError('CITY_UNKNOWN')
+          city.error('CITY_UNKNOWN')
         );
 
         return;
       }
 
       store.dispatch(
-        printCity(
+        city.print(
           place.name,
           [ getGoogleMapsPlaceInfo(place, 'administrative_area_level_1', 'short_name'), getGoogleMapsPlaceInfo(place, 'administrative_area_level_1', 'long_name')],
           getGoogleMapsPlaceInfo(place, 'country'),
@@ -88,17 +88,17 @@ class GoogleMap extends React.Component {
     const { store } = this.props;
     
     if (navigator.geolocation) {
-      store.dispatch( removeCity() );
-      store.dispatch( updateWeatherType('current') );
+      store.dispatch( city.remove() );
+      store.dispatch( weather.updateType('current') );
 
-      store.dispatch( cityUpdateStatus('GEOLOCATING_CITY') );
+      store.dispatch( city.updateStatus('GEOLOCATING_CITY') );
 
       navigator.geolocation.getCurrentPosition(function(position) {
 
-        store.dispatch( cityUpdateStatus('FETCHING_CITY') );
+        store.dispatch( city.updateStatus('FETCHING_CITY') );
 
         store.dispatch(
-          fetchCity(
+          city.get(
             position.coords.latitude,
             position.coords.longitude
           )
@@ -106,7 +106,7 @@ class GoogleMap extends React.Component {
 
       }.bind(this), function(error) {
         store.dispatch(
-          cityError('DENIED_GEOLOCATION')
+          city.error('DENIED_GEOLOCATION')
         );
       });
     }

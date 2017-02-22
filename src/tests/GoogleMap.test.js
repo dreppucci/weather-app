@@ -1,5 +1,6 @@
 import React from 'react';
 import GoogleMap from './../components/GoogleMap';
+import { fetchCity, printCity, cityError, cityUpdateStatus, removeCity } from './../actions/city';
 import expect from 'expect';
 import { mount } from 'enzyme';
 
@@ -9,8 +10,8 @@ describe('GoogleMap', () => {
   const geoPosition = {
     city: 'Milan',
     country: 'IT',
-    lat: 45.444833599999995,
-    lng: 9.1521198,
+    lat: 45.4448551,
+    lng: 9.1521257,
     message: 'Fetched',
     receivedAt: 1487693564971,
     state: [ 'Lombardy', 'Lombardy' ],
@@ -53,12 +54,13 @@ describe('GoogleMap', () => {
     expect(input.get(0).value).toBe('Miami');
   });
 
-  it('Request geolocation', () => {
+  pit('Request geolocation', () => {
     const navigator = require('./../__mocks__/geolocation.js');
 
     const button = component.find('.search-form__geo-button');
     button.simulate('click');
-    //console.log( new navigator().getCurrentPosition() );
-    console.log( navigator.default.geolocation.getCurrentPosition() );
+    const currentGeoPosition = navigator.default.geolocation.getCurrentPosition();
+    expect(currentGeoPosition.coords.latitude).toEqual(geoPosition.lat);
+    expect(currentGeoPosition.coords.longitude).toEqual(geoPosition.lng);
   });
 });

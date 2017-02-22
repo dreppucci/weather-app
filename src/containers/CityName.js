@@ -13,8 +13,8 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const cityName = connect(
+const CityName = connect(
   mapStateToProps
 )(CityDisplayer);
 
-export default cityName;
+export default CityName;

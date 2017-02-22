@@ -4,14 +4,15 @@ import { shallow } from 'enzyme';
 import App from './../App.js';
 
 describe('App', () => {
-  let app;
+  let AppComponent;
 
   beforeEach(() => {
-    app = shallow(<App />);
+    AppComponent = shallow(<App />);
   });
 
-  it('App renders nested components', () => {
-    expect(app.find('Header').length).toEqual(1);
-    expect(app.find('SearchForm').length).toEqual(1);
+  it('renders nested components', () => {
+    expect(AppComponent.find('Header').length).toEqual(1);
+    expect(AppComponent.find('SearchForm').length).toEqual(1);
+    AppComponent.instance().state.weatherDisplay ? expect(AppComponent.find('WeatherForecast').length).toEqual(1) : expect(AppComponent.find('WeatherForecast').length).toEqual(0);
   });
 });
