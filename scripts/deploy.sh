@@ -19,6 +19,8 @@ git checkout -b gh-pages
 
 # Build site.
 npm install
+npm cache clean
+npm rebuild node-sass
 npm run build
 
 # Delete and move files.
