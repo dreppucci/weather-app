@@ -27,4 +27,4 @@ deployment:
   production:
     branch: master
     commands:
-      - npm run build&&gh-pages -d build
+      - ./scripts/deploy.sh
