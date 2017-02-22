@@ -29,10 +29,6 @@ general:
     ignore:
       - gh-pages
 
-test:
-  post:
-    - node scripts/build.js
-
 deployment:
   production:
     branch: master
