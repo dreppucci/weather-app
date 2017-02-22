@@ -20,7 +20,7 @@ export let updateType = function(tab) {
 
 export let getNow = function(country, state, city, lat, lng) {
   return (dispatch, getState) => {
-    return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/conditions/q/${lat},${lng}.json`)
+    return fetch(`https://api.wunderground.com/api/${settings.Wunderground}/conditions/q/${lat},${lng}.json`)
       .then(response => response.json() )
       .then(json => dispatch(update(json.current_observation)))
       .catch(error => dispatch(getError(error)));
@@ -29,7 +29,7 @@ export let getNow = function(country, state, city, lat, lng) {
 
 export let getNext = function(country, state, city, lat, lng) {
   return (dispatch, getState) => {
-    return fetch(`http://api.wunderground.com/api/${settings.Wunderground}/forecast10day/q/${lat},${lng}.json`)
+    return fetch(`https://api.wunderground.com/api/${settings.Wunderground}/forecast10day/q/${lat},${lng}.json`)
       .then(response => response.json() )
       .then(json => dispatch(update(json.forecast)))
       .catch(error => dispatch(getError(error)));
