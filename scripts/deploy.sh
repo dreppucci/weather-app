@@ -1,22 +1,43 @@
-#!/bin/sh
-# ideas used from https://gist.github.com/motemen/8595451
+#!/bin/bash
 
-# abort the script if there is a non-zero error
+# Automated deploy script with Circle CI.
+
+# Exit if any subcommand fails.
 set -e
 
-# show where we are on the machine
-pwd
+# Variables
+ORIGIN_URL=`git config --get remote.origin.url`
 
+echo "Started deploying"
+
+# Checkout gh-pages branch.
+if [ `git branch | grep gh-pages` ]
+then
+  git branch -D gh-pages
+fi
+git checkout -b gh-pages
+
+# Build site.
+npm install
 npm run build
 
-remote=$(git config remote.origin.url)
+# Delete and move files.
+find . -maxdepth 1 ! -name '_site' ! -name '.git' ! -name '.gitignore' -exec rm -rf {} \;
+mv _site/* .
+rm -R _site/
 
-# now lets setup a new repo so we can update the gh-pages branch
-git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
-git config --global user.name "$GH_NAME" > /dev/null 2>&1
-git init
-git remote add --fetch origin "$remote"
+# Push to gh-pages.
+git config user.name "$USER_NAME"
+git config user.email "$USER_EMAIL"
 
-gh-pages -d build
+git add -fA
+git commit --allow-empty -m "$(git log -1 --pretty=%B) [ci skip]"
+git push -f $ORIGIN_URL gh-pages
 
-echo "Finished Deployment!"
+# Move back to previous branch.
+git checkout -
+npm install
+
+echo "Deployed Successfully!"
+
+exit 0
