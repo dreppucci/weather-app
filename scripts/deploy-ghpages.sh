@@ -17,6 +17,11 @@ then
     exit 1
 fi
 
+npm install
+npm cache clean
+npm rebuild node-sass
+npm run build
+
 # make a directory to put the gp-pages branch
 mkdir gh-pages-branch
 cd gh-pages-branch
@@ -40,6 +45,13 @@ fi
 # copy over or recompile the new site
 cp -a "../${siteSource}/." .
 
+cd ..
+
+shopt -s extglob
+rm -rf !(gh-pages-branch)
+mv gh-pages-branch/* .
+rm -R gh-pages-branch/
+
 # stage any changes and new files
 git add -A
 # now commit, ignoring branch gh-pages doesn't seem to work, so trying skip
@@ -49,7 +61,6 @@ git push --force --quiet origin gh-pages > /dev/null 2>&1
 
 # go back to where we started and remove the gh-pages git repo we made and used
 # for deployment
-cd ..
 rm -rf gh-pages-branch
 
 echo "Finished Deployment!"
