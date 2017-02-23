@@ -42,7 +42,9 @@ cp -a "../${siteSource}/." .
 cd ..
 
 find . -maxdepth 1 ! -name 'gh-pages-branch' ! -name '.git' ! -name '.gitignore' -exec rm -rf {} \;
+ls -la
 mv gh-pages-branch/* .
+ls -la
 rm -rf gh-pages-branch
 
 # stage any changes and new files
