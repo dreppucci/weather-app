@@ -4,7 +4,7 @@
 set -e
 pwd
 
-remote="$GH_EMAIL"
+remote="$GH_REMOTE"
 siteSource="$SITE_SOURCE"
 
 if [ ! -d "node_modules" ]; then
