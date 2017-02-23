@@ -42,10 +42,10 @@ cp -a "../${siteSource}/." .
 cd ..
 
 find . -maxdepth 1 ! -name 'gh-pages-branch' ! -name '.git' ! -name '.gitignore' -exec rm -rf {} \;
-ls -la
 mv gh-pages-branch/* .
-ls -la
 rm -rf gh-pages-branch
+
+cat .git/config
 
 # stage any changes and new files
 git add -A
@@ -53,5 +53,7 @@ git add -A
 git commit --allow-empty -m "Deploy to GitHub pages [ci skip]"
 # and push, but send any output to /dev/null to hide anything sensitive
 git push --force --quiet origin gh-pages #> /dev/null 2>&1
+
+cat .git/config
 
 echo "Finished Deployment!"
