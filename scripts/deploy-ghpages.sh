@@ -33,7 +33,7 @@ then
     # Note: this explodes if there aren't any, so moving it here for now
     #git rm -rf .
 else
-    git checkout --orphan gh-pages
+    git checkout -b gh-pages
 fi
 
 # copy over or recompile the new site
