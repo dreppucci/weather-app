@@ -25,16 +25,7 @@ git config --global user.name "$GH_NAME" > /dev/null 2>&1
 git init
 git remote add --fetch origin "$remote"
 
-# switch into the the gh-pages branch
-if git rev-parse --verify origin/gh-pages > /dev/null 2>&1
-then
-    git checkout -b gh-pages
-    # delete any old site as we are going to replace it
-    # Note: this explodes if there aren't any, so moving it here for now
-    #git rm -rf .
-else
-    git checkout -b gh-pages
-fi
+git checkout -b gh-pages
 
 # copy over or recompile the new site
 cp -a "../${siteSource}/." .
@@ -45,15 +36,8 @@ find . -maxdepth 1 ! -name 'gh-pages-branch' ! -name '.git' ! -name '.gitignore'
 mv gh-pages-branch/* .
 rm -rf gh-pages-branch
 
-cat .git/config
-
-# stage any changes and new files
-git add -A
-# now commit, ignoring branch gh-pages doesn't seem to work, so trying skip
+git add .
 git commit --allow-empty -m "Deploy to GitHub pages [ci skip]"
-# and push, but send any output to /dev/null to hide anything sensitive
-git push --force --quiet origin gh-pages #> /dev/null 2>&1
-
-cat .git/config
+git push -u --force origin gh-pages:gh-pages #> /dev/null 2>&1
 
 echo "Finished Deployment!"
