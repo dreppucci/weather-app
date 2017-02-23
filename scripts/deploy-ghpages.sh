@@ -24,4 +24,4 @@ git config --global user.name "$GH_NAME" > /dev/null 2>&1
 git init
 git remote add --fetch origin "$remote"
 
-./../node_modules/gh-pages/bin/gh-pages -d ${siteSource}
+./../node_modules/gh-pages/bin/gh-pages -d .
