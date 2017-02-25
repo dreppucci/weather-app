@@ -6,6 +6,7 @@ const WeatherNowDisplayer = ({ data, type, message, status }) => {
   let currentWeather = <span className="feedback">{locale.Loading}</span>;
 
   try {
+    let image = window.location.protocol === 'http:' ? data.icon_url : data.icon_url.replace('http', 'https');
     currentWeather = data && type === 'current' ? (
       <div className="weather-forecast__cell">
         <div className="weather-forecast__day-infos">
@@ -14,7 +15,7 @@ const WeatherNowDisplayer = ({ data, type, message, status }) => {
         </div>
         <div className="weather-forecast__day-values">
           <figure>
-            <img src={data.icon_url} alt="" title="" />
+            <img src={image} alt="" title="" />
           </figure>
           <ul>
             <li><strong>{locale.Temperature}</strong> {data.temp_c}°C</li>

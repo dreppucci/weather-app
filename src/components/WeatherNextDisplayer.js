@@ -10,6 +10,7 @@ const WeatherNextDisplayer = ({ data, type, message, status }) => {
     weatherDays = data && type === 'forecast' ? data.simpleforecast.forecastday : <span>empty</span>;
 
     weatherForecastDays = weatherDays.map((day, index) => {
+      let image = window.location.protocol === 'http:' ? day.icon_url : day.icon_url.replace('http', 'https');
       return (
         <div className="weather-forecast__cell" key={index}>
           <div className="weather-forecast__day-infos">
@@ -18,7 +19,7 @@ const WeatherNextDisplayer = ({ data, type, message, status }) => {
           </div>
           <div className="weather-forecast__day-values" key={index}>
             <figure>
-              <img src={day.icon_url} alt="" title="" />
+              <img src={image} alt="" title="" />
             </figure>
             <ul>
               <li><strong>{locale.HighestTemperature}</strong> {day.high.celsius}°C</li>
