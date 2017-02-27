@@ -39,7 +39,7 @@ describe('GoogleMap', () => {
     expect(input.get(0).className).toBe('is-valued');
   });
 
-  it('Search input calls Google Maps Api', () => {
+  /*it('Search input calls Google Maps Api', () => {
     const input = component.find('#city');
     input.simulate('focus');
     input.simulate('change', { target: { value: 'Miami' } });
@@ -52,7 +52,7 @@ describe('GoogleMap', () => {
       },
     });
     expect(input.get(0).value).toBe('Miami');
-  });
+  });*/
 
   pit('Request geolocation', () => {
     const navigator = require('./../__mocks__/geolocation.js');
