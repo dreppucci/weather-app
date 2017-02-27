@@ -17,9 +17,8 @@ const App = React.createClass({
   },
 
   componentDidMount() {
-
     ReactGA.initialize('UA-73037711-2', {
-      debug: true
+      debug: process.env.NODE_ENV === 'development' ? true : false
     });
     
     ReactGA.pageview(window.location.pathname);
