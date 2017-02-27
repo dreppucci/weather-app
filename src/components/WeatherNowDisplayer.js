@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactGA from 'react-ga';
 const __LANG = navigator.language !== 'en-US' ? 'en-US' : navigator.language;
 const locale = require('./../locale/' + __LANG + '.json');
 
@@ -29,6 +30,11 @@ const WeatherNowDisplayer = ({ data, type, message, status }) => {
   catch(error) {
     console.log(error);
     currentWeather = <span className="feedback feedback--error">{locale.LoadingError}</span>;
+
+    ReactGA.exception({
+      description: error.message,
+      fatal: true
+    });
   }
 
   return (

@@ -57,14 +57,6 @@ export let updateStatus = function(type) {
   };
 };
 
-export let error = function(error, message) {
-  return {
-    type: error,
-    message: message,
-    status: 400
-  };
-};
-
 export let get = function(lat, lng) {
   return (dispatch, getState) => {
     return fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${settings.GoogleMaps}`)

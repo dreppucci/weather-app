@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 
 import Header from './components/Header';
 import SearchForm from './components/SearchForm';
@@ -16,6 +17,13 @@ const App = React.createClass({
   },
 
   componentDidMount() {
+
+    ReactGA.initialize('UA-73037711-2', {
+      debug: true
+    });
+    
+    ReactGA.pageview(window.location.pathname);
+
     const { store } = this.props;
 
     function select(state, value) {

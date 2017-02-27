@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import settings from '../settings/keys.json';
 import CityName from '../containers/CityName';
 import { getGoogleMapsPlaceInfo } from '../containers/GoogleMapPlace';
@@ -15,7 +16,6 @@ class GoogleMap extends React.Component {
     super(props);
 
     this.state = {
-      city: '',
       searchInputFull: false
     };
   }
@@ -50,8 +50,13 @@ class GoogleMap extends React.Component {
       if (!place.geometry) {
 
         store.dispatch(
-          city.error('CITY_UNKNOWN')
+          city.updateStatus('CITY_UNKNOWN')
         );
+
+        ReactGA.exception({
+          description: 'CITY_UNKNOWN',
+          fatal: true
+        });
 
         return;
       }
@@ -66,6 +71,14 @@ class GoogleMap extends React.Component {
         )
       );
 
+      let GALabelString = place.name+', '+getGoogleMapsPlaceInfo(place, 'administrative_area_level_1', 'short_name')+', '+getGoogleMapsPlaceInfo(place, 'country');
+
+      ReactGA.event({
+        category: 'Geolocation',
+        action: 'Selected from list',
+        label: GALabelString
+      });
+
     }.bind(this));
   }
 
@@ -73,7 +86,6 @@ class GoogleMap extends React.Component {
     let city = evt.target.value;
 
     let props = {
-      city: city,
       searchInputFull: city.length === 0 ? false : true
     }
 
@@ -104,19 +116,33 @@ class GoogleMap extends React.Component {
           )
         );
 
+        let GALabelString = position.coords.latitude+', '+position.coords.longitude;
+
+        ReactGA.event({
+          category: 'Geolocation',
+          action: 'Auto-geolocate',
+          label: GALabelString
+        });
+
       }.bind(this), function(error) {
         store.dispatch(
-          city.error('DENIED_GEOLOCATION')
+          city.updateStatus('DENIED_GEOLOCATION')
         );
+
+        ReactGA.exception({
+          description: 'DENIED_GEOLOCATION',
+          fatal: true
+        });
       });
     }
   }
 
   render() {
+
     return (
       <div className="r-wrapper">
         <div className="search-form__input-wrapper">
-          <input type="text" id="city" name="city" onChange={this.onChange.bind(this)} value={this.state.city} className={this.state.searchInputFull ? 'is-valued' : ''} onBlur={this.onBlurPlaceholder.bind(this)} required="required" placeholder="" />
+          <input type="text" id="city" name="city" onChange={this.onChange.bind(this)} className={this.state.searchInputFull ? 'is-valued' : ''} onBlur={this.onBlurPlaceholder.bind(this)} required="required" placeholder="" />
           <span className="search-form__input-info">{locale.SearchFormInputPlaceholder}</span>
         </div>
         <div className="search-form__input-wrapper">

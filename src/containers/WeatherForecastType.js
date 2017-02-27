@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import ReactGA from 'react-ga';
 import * as weather from '../actions/weather';
 import WeatherForecastTypeDisplayer from '../components/WeatherForecastTypeDisplayer';
 
@@ -13,6 +14,13 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onClick: (tab) => {
       dispatch(weather.updateType(tab));
+
+      ReactGA.event({
+        category: 'WeatherType',
+        action: 'Selected from tab',
+        label: tab
+      });
+      
       return tab;
     }
   };
